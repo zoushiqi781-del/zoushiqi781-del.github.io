@@ -75,7 +75,7 @@ const WORKS: Work[] = [
     id: "rio",
     title: "Rio微醺",
     sub: "TVC 视频广告",
-    hint: "学院奖",
+    hint: "学院奖参赛作品",
     color: C.pink,
     className: "absolute top-[54%] left-[28%] rotate-[-4deg]",
     images: ["/works/rio/cover.png"],
@@ -175,6 +175,7 @@ function WorkGallery({
       <div className="flex-1 relative flex items-center justify-center min-h-0 px-4 pb-4">
         <button
           onClick={goPrev}
+          aria-label="上一页"
           className="absolute left-4 md:left-8 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 transition-all flex items-center justify-center text-white text-xl hover:scale-110"
         >
           ‹
@@ -201,6 +202,7 @@ function WorkGallery({
 
         <button
           onClick={goNext}
+          aria-label="下一页"
           className="absolute right-4 md:right-8 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 transition-all flex items-center justify-center text-white text-xl hover:scale-110"
         >
           ›
@@ -213,6 +215,8 @@ function WorkGallery({
             <button
               key={i}
               onClick={() => setCurrent(i)}
+              aria-label={`查看第 ${i + 1} 页`}
+              aria-current={i === current ? "page" : undefined}
               className={`shrink-0 w-16 h-10 md:w-20 md:h-12 rounded-lg overflow-hidden border-2 transition-all ${
                 i === current ? "border-white scale-110" : "border-transparent opacity-50 hover:opacity-80"
               }`}
@@ -229,7 +233,7 @@ function WorkGallery({
 /* ─── Ability Map (我的能力地图) ─── */
 const COMPETENCIES = [
   { name: "品牌策划", color: C.red, desc: "能够完成品牌定位分析、传播主题提炼与营销策略构思，参与多项品牌策划与广告竞赛项目。擅长从用户洞察出发寻找传播切入点，将品牌诉求转化为具有传播性的创意概念，并形成完整策划方案。" },
-  { name: "内容运营", color: C.pink, desc: "具备小红书内容运营实践经验，能够独立完成账号定位、选题策划、内容生产与数据复盘。运营萌宠内容账号期间创作多篇高互动内容，最高单篇笔记获得 3.6 万点赞，积累了对平台推荐机制与用户偏好的实际理解。" },
+  { name: "内容运营", color: C.pink, desc: "在宝马 MINI 小红书项目参与 UGC 筛选、审核、授权、上线跟进及投放复盘；个人萌宠账号从零起号，独立完成选题、制作、发布与数据复盘，单条视频最高获得 8.4 万赞。" },
   { name: "文案写作", color: C.blue, desc: "擅长品牌文案、活动文案、主题 slogan、社交媒体内容与传播话题创作。能够根据不同平台与受众调整表达方式，通过标题设计、情绪表达与叙事结构提升内容传播效果与用户互动意愿。" },
   { name: "活动策划", color: C.yellow, desc: "参与节事活动、校园活动及品牌营销活动策划，具备活动主题设计、流程规划与传播方案撰写能力。能够围绕目标受众需求设计活动体验，并结合线上传播形成完整活动闭环。" },
   { name: "短视频制作", color: C.brown, desc: "具备短视频脚本创作、拍摄与剪辑能力，参与直播赛道引流短视频制作实践。能够结合平台内容特点设计传播素材，熟悉从创意构思到成片输出的完整制作流程。" },
@@ -250,6 +254,22 @@ const EXPERIENCES: {
   involved?: string[];
   gains: string[];
 }[] = [
+  {
+    period: "2026.07 – 2026.10",
+    role: "利欧数字 · 效果优化部 · 优化实习生",
+    desc: "参与宝马 MINI 小红书聚光项目，负责 UGC 筛选、素材审核、内容授权及上线跟进；维护素材与搜索数据底表、投放日报。参与成都 Roadshow 和合作广场复盘，完成 288 篇 UGC 分类及爆文筛选，结合 CTR、CPC、CPTI 分析内容效果。",
+    involved: ["UGC 内容管理", "Campaign 执行", "投放数据复盘"],
+    gains: ["内容审核与授权", "跨团队协作", "效果分析"],
+    color: C.red,
+  },
+  {
+    period: "2026.06 – 2026.07",
+    role: "上海多啦阿梦 · 媒介运营实习生",
+    desc: "参与本地生活营销项目，协助 KOL/KOC 筛选、合作信息整理、内容审核与 Excel 媒介台账维护，汇总曝光、互动及团购数据。",
+    involved: ["达人筛选", "内容审核", "媒介台账"],
+    gains: ["媒介执行", "数据整理"],
+    color: C.pink,
+  },
   {
     period: "2024.09 – 2025.06",
     role: "上海大学教务处 · 学生助理",
@@ -388,7 +408,7 @@ function ExperiencePanel({ onBack }: { onBack: () => void }) {
             className="shrink-0 px-4 py-2 rounded-full text-sm font-bold text-white font-body transition-transform hover:scale-105"
             style={{ background: C.brown }}
           >
-            ↓ 下载简历
+            ↗ 查看一页简历
           </a>
         </div>
 
@@ -747,8 +767,8 @@ function ObjectsRoom({
         <img src={ROOM_BG} alt="" className="absolute inset-0 w-full h-full object-cover select-none" draggable={false} />
 
         {/* hint */}
-        <p className="absolute top-[6%] left-1/2 -translate-x-1/2 text-center font-cute text-lg md:text-2xl text-white/45 pointer-events-none select-none">
-          把光标移到小物件上看看 · 点击进入
+        <p className="absolute top-[6%] left-1/2 -translate-x-1/2 text-center font-cute text-lg md:text-2xl text-white/70 pointer-events-none select-none whitespace-nowrap">
+          点击小物件探索作品
         </p>
 
         {ROOM_OBJECTS.map((obj) => (
@@ -797,6 +817,24 @@ export default function Home() {
           }
         }}
       />
+
+      {/* Direct access for recruiters and touch devices; the room remains explorable. */}
+      <nav aria-label="作品集快捷导航" className="fixed top-0 inset-x-0 z-30 flex justify-center px-3 pt-3 pointer-events-none">
+        <div className="pointer-events-auto max-w-full flex gap-1.5 overflow-x-auto rounded-full bg-[#21150f]/85 p-1.5 shadow-xl backdrop-blur-sm">
+          {[
+            { label: "实习经历", action: () => setOverlay({ type: "experience" }) },
+            { label: "小红书运营", action: () => setOverlay({ type: "gallery", work: WORKS.find((w) => w.id === "pets")! }) },
+            { label: "策划作品", action: () => setOverlay({ type: "category", key: "planning" }) },
+            { label: "技术与数据", action: () => setOverlay({ type: "category", key: "tech" }) },
+            { label: "联系我", action: () => setOverlay({ type: "contact" }) },
+          ].map((item) => (
+            <button key={item.label} type="button" onClick={item.action}
+              className="shrink-0 rounded-full px-3 py-2 text-xs font-body font-semibold text-white/90 hover:bg-white/20 focus-visible:bg-white/20 focus-visible:outline-2 focus-visible:outline-white">
+              {item.label}
+            </button>
+          ))}
+        </div>
+      </nav>
 
       {/* ── Bottom bar (over the dark room) ── */}
       <div className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-center py-3 gap-4">
@@ -860,7 +898,7 @@ export default function Home() {
                   <svg viewBox="0 0 24 24" fill="none" stroke={C.pink} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
                     <path d="M12 3c.6 2.4 2.8 3.4 2.8 6.2a2.8 2.8 0 0 1-5.6 0c0-.9.3-1.5.8-2.1.3 1.2 1.4 1.3 1.4.2 0-1.4-.9-2.6.6-4.3Z" /><path d="M8.5 13.5a3.5 3.5 0 1 0 7 0c0-1-.4-1.8-1-2.5" />
                   </svg>
-                  多条爆款内容
+                  小红书内容运营
                 </span>
                 <span className="flex items-center gap-1.5 text-white/95" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.6)" }}>
                   <svg viewBox="0 0 24 24" fill="none" stroke={C.blue} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
@@ -877,7 +915,7 @@ export default function Home() {
               </div>
 
               <p className="mt-5 font-body text-xs md:text-sm text-white/80 leading-relaxed max-w-md" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}>
-                从品牌策划到内容运营，从数据分析到AI开发，<br className="hidden md:block" />我喜欢把想法变成真实可见的作品。
+                从 MINI 项目内容管理，到独立运营小红书账号，<br className="hidden md:block" />我喜欢把想法变成真实可见的作品。
               </p>
 
               <motion.p
